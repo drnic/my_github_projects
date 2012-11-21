@@ -1,24 +1,19 @@
 # My::Github::Projects
 
-TODO: Write a gem description
-
-## Installation
-
-Add this line to your application's Gemfile:
-
-    gem 'my-github-projects'
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install my-github-projects
+Creates markdown file listing all your Github projects.
 
 ## Usage
 
-TODO: Write usage instructions here
+```
+$ gem install my-github-projects
+$ my-github-projects
+```
+
+Can also be used to generate a report for an organization of which you are a member.
+
+```
+$ my-github-projects myorg
+```
 
 ## Contributing
 
