@@ -1,10 +1,10 @@
 # -*- encoding: utf-8 -*-
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'my-github-projects/version'
+require 'my_github_projects/version'
 
 Gem::Specification.new do |gem|
-  gem.name          = "my-github-projects"
+  gem.name          = "my_github_projects"
   gem.version       = My::Github::Projects::VERSION
   gem.authors       = ["Dr Nic Williams"]
   gem.email         = ["drnicwilliams@gmail.com"]

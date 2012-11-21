@@ -5,14 +5,14 @@ Creates markdown file listing all your Github projects.
 ## Usage
 
 ```
-$ gem install my-github-projects
-$ my-github-projects
+$ gem install my_github_projects
+$ my_github_projects
 ```
 
 Can also be used to generate a report for an organization of which you are a member.
 
 ```
-$ my-github-projects myorg
+$ my_github_projects myorg
 ```
 
 ## Contributing

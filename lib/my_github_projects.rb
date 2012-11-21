@@ -1,4 +1,4 @@
-require "my-github-projects/version"
+require "my_github_projects/version"
 
 module My
   module Github
