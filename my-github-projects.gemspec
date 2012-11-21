@@ -8,8 +8,8 @@ Gem::Specification.new do |gem|
   gem.version       = My::Github::Projects::VERSION
   gem.authors       = ["Dr Nic Williams"]
   gem.email         = ["drnicwilliams@gmail.com"]
-  gem.description   = %q{TODO: Write a gem description}
-  gem.summary       = %q{TODO: Write a gem summary}
+  gem.description   = %q{Creates markdown file listing all your Github projects}
+  gem.summary       = %q{Creates markdown file listing all your Github projects}
   gem.homepage      = ""
 
   gem.files         = `git ls-files`.split($/)
