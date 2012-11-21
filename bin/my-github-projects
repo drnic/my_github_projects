@@ -1,0 +1,61 @@
+#!/usr/bin/env ruby
+
+require "highline"
+require "octokit"
+require "pp"
+
+user = HighLine.new.ask("Enter your username:  ") { |q| q.default = `whoami`.strip }
+name = HighLine.new.ask("Enter your name:  ") { |q| q.default = `git config user.name`.strip }
+password = HighLine.new.ask("Enter your password:  ") { |q| q.echo = "x" }
+organization = ARGV.shift
+expected_owner = organization || user
+
+if organization
+  puts "Fetching repositories from organization #{organization}, instead of you."
+  markdown = "repos-#{user}-#{organization}.md"
+else
+  puts "Fetching your personal repositories."
+  markdown = "repos-#{user}.md"
+end
+
+
+client = Octokit::Client.new(login: user, password: password, auto_traversal: true)
+if organization
+  repos = client.organization_repositories(organization)
+else
+  repos = client.repositories
+end
+your_repos = repos.select { |repo| repo.owner.login == expected_owner }
+puts "Found #{repos.size} repositories. Lovely."
+puts "You own #{your_repos.size} repositories. Nice!"
+
+File.open(markdown, "w") do |file|
+  file << <<-EOS
+# #{name}'s Projects
+
+This document lists #{your_repos.size} repositories that are owned by #{name}, or are 
+an extension/fork of someone else's project.
+
+EOS
+  your_repos.each do |repo|
+    if repo.fork
+      # fetch full repo information to get parent repo
+      puts "Fetching repo #{repo.full_name} for its parent information"
+      repo = client.repository(repo.full_name)
+    end
+    # p [repo.name, repo.full_name, repo.html_url, repo.private, repo.owner.login]
+    private_or_oss = repo.private ? 'private' : 'open source'
+    file << <<-EOS
+## #{repo.name}
+
+#{repo.description}
+
+* Open Source or Private: #{private_or_oss}
+* #{repo.html_url}
+#{'* Fork: ' + repo.parent.owner.login if repo.fork}
+
+EOS
+  end
+end
+
+puts "File saved to #{markdown}"
